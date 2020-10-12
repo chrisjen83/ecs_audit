@@ -1,6 +1,8 @@
 # ECS Audit Exporter
 
-ECS Audit Exporter is a python script designed to export via the  ECS Management API all audit events which have occurred in a 24hr period on the day the script runs.
+ECS Audit Exporter is a python script designed to export via the  ECS Management API all audit events which have occurred in a 24hr period on the day the script runs within a specific namespace.
+
+All audit information is exported and written to an S3 bucket in a JSON file format.  The file name will have the date the information was exported and use the audit prefix.
 
 To run this script you will need to have an ECS management user with the sysadmin privileges and have an S3 bucket created with an object user who can write to that bucket.
 
@@ -38,8 +40,10 @@ MAXEVENTS: 1000
 
 3. Once you have filled out all settings in the master_audit_config.ini you will need to rename master_audit_config.ini to audit_config.ini keeping it in the same folder as audit.py.
 
-Note: This script will rely on the Timezone set on the ECS cluster and not the machine this script is running on.
+> Note: This script will rely on the Timezone set on the ECS cluster and not the machine this script is running on.
 
 4. Lastly for this script to run on a daily schedule you will need to add this script to a CRON process on your server.
+
+> Note: You can run this script on demand from the command line by typing ` # python audit.py`.  If you run this command repeatedly within the same 24hr period the same information will be exported.
 
 
